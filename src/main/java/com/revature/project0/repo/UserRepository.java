@@ -23,10 +23,10 @@ public class UserRepository {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-//            String sql = "SELECT * FROM project0.app_users au " +
-//                         "JOIN project0.user_roles ur " +
-//                         "ON au.role_id = ur.id " +
-//                         "WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM project0.app_users au " +
+                         "JOIN project0.user_roles ur " +
+                         "ON au.role_id = ur.id " +
+                         "WHERE username = ? AND password = ?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
@@ -100,6 +100,13 @@ public class UserRepository {
         while (rs.next()) {
             User temp = new User();
             temp.setId(rs.getInt("id"));
+            temp.setFirstName(rs.getString("first_name"));
+            temp.setLastName(rs.getString("last_name"));
+            temp.setUsername(rs.getString("username"));
+            temp.setEmail(rs.getString("password"));
         }
+
+        return users;
     }
+
 }
