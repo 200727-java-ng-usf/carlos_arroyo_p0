@@ -1,4 +1,4 @@
-package models;
+package com.revature.project0.models;
 
 
 import java.util.Objects;
@@ -7,15 +7,22 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private String username;
+    private String email;
     private String password;
 
+
+    // no-args constructor
     public User () {
         super();
     }
 
-    public User (String firstName, String lastName, String password) {
+    // constructor
+    public User (String firstName, String lastName, String username, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -36,6 +43,22 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -52,12 +75,14 @@ public class User {
         User user = (User) o;
         return Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, password);
+        return Objects.hash(firstName, lastName, username, email, password);
     }
 
     @Override
@@ -65,6 +90,8 @@ public class User {
         return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
