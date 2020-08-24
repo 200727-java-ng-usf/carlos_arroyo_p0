@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class User {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String username;
@@ -18,7 +19,8 @@ public class User {
     }
 
     // constructor
-    public User (String firstName, String lastName, String username, String email, String password) {
+    public User (int id, String firstName, String lastName, String username, String email, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -27,6 +29,14 @@ public class User {
     }
 
     // getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -73,7 +83,8 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(firstName, user.firstName) &&
+        return Objects.equals(id, user.id) &&
+                Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(email, user.email) &&
@@ -82,12 +93,13 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, username, email, password);
+        return Objects.hash(id, firstName, lastName, username, email, password);
     }
 
     @Override
     public String toString() {
         return "User{" +
+                "id='" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
