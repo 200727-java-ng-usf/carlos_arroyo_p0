@@ -49,25 +49,25 @@ public class UserService {
 
     }
 
-//    public Set<User> getAllUsers() {
-//        return new HashSet<>();
-//    }
-//
-//    public User getUserByID(int id) {
-//        return null;
-//    }
-//
-//    public User getUserByUsername(String username) {
-//        return null;
-//    }
-//
-//    public boolean deleteUserById(int id) {
-//        return false;
-//    }
-//
-//    public boolean update(User updatedUser) {
-//        return false;
-//    }
+    public Set<User> getAllUsers() {
+        return new HashSet<>();
+    }
+
+    public User getUserByID(int id) {
+        return null;
+    }
+
+    public User getUserByUsername(String username) {
+        return null;
+    }
+
+    public boolean deleteUserById(int id) {
+        return false;
+    }
+
+    public boolean update(User updatedUser) {
+        return false;
+    }
 
     // Validates that the given user and its fields are valid.
     public boolean isUserValid(User user) {

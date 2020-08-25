@@ -23,7 +23,7 @@ public class UserRepository {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "SELECT * FROM project0.app_users au " +
+            String sql = "SELECT * FROM project0. au " +
                          "JOIN project0.user_roles ur " +
                          "ON au.role_id = ur.id " +
                          "WHERE username = ? AND password = ?";
