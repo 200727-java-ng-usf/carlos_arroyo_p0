@@ -18,9 +18,7 @@ public class DashBoardScreen extends Screen {
         while (app.isSessionValid()) {
             System.out.println("\n\n-----------------------");
             System.out.println("1) View Account Balance");
-            System.out.println("2) Withdraw");
-            System.out.println("3) Deposit");
-            System.out.println("4) Sign Out");
+            System.out.println("2) Sign Out");
         }
 
         try {
@@ -33,11 +31,7 @@ public class DashBoardScreen extends Screen {
                     app.getRouter().navigate("/balance");
                     break;
                 case "2":
-                    app.getRouter().navigate("/withdraw");
-                    break;
-                case "3":
-                    app.getRouter().navigate("/deposit");
-                    break;
+                    app.getRouter().navigate("/home");
                 default:
                     System.out.println("Invalid Selection");
             }
