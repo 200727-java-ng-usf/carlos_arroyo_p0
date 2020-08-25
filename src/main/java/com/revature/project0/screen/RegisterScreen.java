@@ -23,6 +23,7 @@ public class RegisterScreen extends Screen {
     public void render() {
 
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
+        Integer id = 0;
         String firstName, lastName, username, email, password;
 
         try {
@@ -38,7 +39,7 @@ public class RegisterScreen extends Screen {
             System.out.println("Password");
             password = console.readLine();
 
-            User newUser = new User(firstName, lastName, username, email, password);
+            User newUser = new User(id, firstName, lastName, username, email, password);
             userService.register(newUser);
 
             if(app.isSessionValid()) {

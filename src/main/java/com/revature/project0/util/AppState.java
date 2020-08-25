@@ -29,7 +29,7 @@ public class AppState {
                 .addScreen(new RegisterScreen(userService))
                 .addScreen(new LoginScreen(userService))
                 .addScreen(new DashBoardScreen())
-                .addScreen(new BalanceScreen())
+                .addScreen(new AccountScreen())
                 .addScreen(new WithdrawScreen());
 
 
