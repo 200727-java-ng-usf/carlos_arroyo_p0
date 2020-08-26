@@ -54,13 +54,7 @@ public class UserRepository {
 
 
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
-                User newUser = new User(rs.getString("first_name"), rs.getString("last_name"), rs.getString("username"), rs.getString("email"), rs.getString("password"));
-                if (newUser.getUsername().equals(username)) {
-                    _user = Optional.of(newUser);
-                    return _user;
-                }
-            }
+
 
         } catch (SQLException sqle) {
 
@@ -71,34 +65,7 @@ public class UserRepository {
         return _user;
     }
 
-//    public void save(User newUser) {
 //
-//        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-//
-//            String sql = "INSERT INTO project_0.customer (first_name, last_name, username, email, password) " +
-//                    "VALUES (?,?,?,?,?)";
-//
-//            PreparedStatement pstmt = conn.prepareStatement(sql, new String[] {"id"});
-//            pstmt.setString(1, newUser.getFirstName());
-//            pstmt.setString(2, newUser.getLastName());
-//            pstmt.setString(3, newUser.getUsername());
-//            pstmt.setString(4, newUser.getEmail());
-//            pstmt.setString(5, newUser.getPassword());
-//
-//            int rowsInserted = pstmt.executeUpdate();
-//
-//            if (rowsInserted != 0) {
-//
-//                ResultSet rs = pstmt.getGeneratedKeys();
-//
-//                rs.next();
-//                newUser.setId(rs.getInt(1));
-//            }
-//
-//        } catch (SQLException sqle) {
-//            sqle. printStackTrace();
-//        }
-//    }
 
     public void save(User newUser) {
 

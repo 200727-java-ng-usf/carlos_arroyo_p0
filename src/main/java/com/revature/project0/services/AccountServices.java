@@ -39,24 +39,6 @@ public class AccountServices {
         app.setCurrentAccount(newAccount);
     }
 
-    public double moneyHandler(Double amount) {
 
-        Account currentAccount = app.getCurrentAccount();
-        double currentBalance = currentAccount.getBalance();
-        if (amount <= 0) {
-            throw new RuntimeException("Amounts less than 0 are not allowed.");
-//            System.out.println("Amount less than 0");
-        } else if (amount > 0){
-            currentBalance = amount + currentBalance;
-        } else if (amount > currentBalance) {
-            throw new RuntimeException("Not enough funds!");
-        } else {
-            currentBalance = currentBalance - amount;
-        }
-
-        accountRepo.update(currentBalance);
-        currentAccount.setBalance(currentBalance);
-        return currentBalance;
-    }
 
 }
