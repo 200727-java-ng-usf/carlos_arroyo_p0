@@ -14,7 +14,7 @@ public class LoginScreen extends Screen{
 
     public LoginScreen(UserService userService) {
         super("LoginScreen", "/login");
-        System.out.println("[LOG] - Instantiating " + this.getClass().getName());
+//        System.out.println("[LOG] - Instantiating " + this.getClass().getName());
 
         //// loosely coupled, because this class is not responsible for instantiation of a UserService
         this.userService = userService;
@@ -39,10 +39,11 @@ public class LoginScreen extends Screen{
             }
         } catch (InvalidRequestStateException | AuthenticationException e) {
             System.err.println("Invalid login credentials provided!");
+            app.getRouter().navigate("/home");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.err.println("[ERRO} = An unexpected exception occurred: " + e.getMessage());
-            System.out.println("[LOG} - Shutting down application");
+//            System.out.println("[LOG} - Shutting down application");
             app.setAppRunning(false);
         }
     }

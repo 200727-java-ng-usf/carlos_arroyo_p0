@@ -10,9 +10,9 @@ public class AppDriver {
 
         while(app.isAppRunning()) {
             System.out.println(app.isAppRunning());
-            System.out.println("beginning of while loop");
+//            System.out.println("beginning of while loop");
             app.getRouter().navigate("/home");
-            System.out.println("end of while loop");
+//            System.out.println("end of while loop");
             System.out.println(app.isAppRunning());
         }
     }

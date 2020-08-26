@@ -1,5 +1,7 @@
 package com.revature.project0.util;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,9 +14,14 @@ public class ConnectionFactory {
     private Properties props = new Properties();
 
     private ConnectionFactory() {
-        super();
+        try {
+            props.load(new FileReader("./src/main/resources/application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    // get the connection factory
     public static ConnectionFactory getInstance() {
         return factory;
     }
@@ -27,16 +34,14 @@ public class ConnectionFactory {
         try {
 
             // Force the JVM to load the PostGreSQL JDBC driver
-            Class.forName("org.postgressql.Driver");
-
+            Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(
                     props.getProperty("url"),
                     props.getProperty("username"),
-                    props.getProperty("password")
-            );
+                    props.getProperty("password"));
 
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            System.err.println("Could not connect!");
         }
 
         if (conn == null) {

@@ -14,60 +14,66 @@ public class UserService {
     private UserRepository userRepo;
 
     public UserService(UserRepository repo) {
-        System.out.println("[LOG] - instantiating " + this.getClass().getName());
+//        System.out.println("[LOG] - instantiating " + this.getClass().getName());
         userRepo = repo;
     }
 
-    public void authenticate(String username, String password) throws AuthenticationException {
+    public User authenticate(String username, String password)  {
 
-        // validate that the username and password are non-values
-        if (username == null || username.trim().equals("") || password.trim() == null || password.trim().equals("")) {
-            throw new InvalidRequestStateException("Invalid credential values provided!");
+        Optional<User> _authUser = (userRepo.findUserByCredentials(username, password));
+        //if the user isn't present in the persistence layer, throw an exception. Otherwise set the current user to the provided user credentials' user.
+        if (!_authUser.isPresent()) {
+
+            System.err.println("invalid user");
+        } else {
+            app.setCurrentUser(_authUser.get());
+
         }
 
-        User authenticatedU = userRepo.findUserByCredentials(username, password)
-                .orElseThrow(AuthenticationException::new);
-
-       app.setCurrentUser(authenticatedU);
+        return _authUser.get();
     }
+
 
     // register customer
     public void register(User newUser) {
 
         if (!isUserValid(newUser)) {
+            app.invalidateCurrentSession();
             throw new InvalidRequestStateException("Invalid user field values provided during registration!");
         }
 
-        Optional<User> existingUser = userRepo.findUserByUsername(newUser.getUsername());
-        if (existingUser.isPresent()) {
+        Optional<User> _existingUser = userRepo.findUserByUsername(newUser.getUsername());
+        if (_existingUser.isPresent()) {
             throw new RuntimeException("Provided username is already in use!");
         }
 
         userRepo.save(newUser);
-        System.out.println(newUser);
+//        System.out.println(newUser);
         app.setCurrentUser(newUser);
 
     }
 
-    public Set<User> getAllUsers() {
-        return new HashSet<>();
-    }
 
-    public User getUserByID(int id) {
-        return null;
-    }
 
-    public User getUserByUsername(String username) {
-        return null;
-    }
-
-    public boolean deleteUserById(int id) {
-        return false;
-    }
-
-    public boolean update(User updatedUser) {
-        return false;
-    }
+//    public Set<User> getAllUsers() {
+//        return new HashSet<>();
+//    }
+//
+//    public User getUserByID(int id) {
+//        return null;
+//    }
+//
+//    public User getUserByUsername(String username) {
+//        return null;
+//    }
+//
+//    public boolean deleteUserById(int id) {
+//        return false;
+//    }
+//
+//    public boolean update(User updatedUser) {
+//        return false;
+//    }
 
     // Validates that the given user and its fields are valid.
     public boolean isUserValid(User user) {

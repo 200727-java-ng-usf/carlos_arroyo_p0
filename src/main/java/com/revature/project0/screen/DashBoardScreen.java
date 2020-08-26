@@ -6,40 +6,44 @@ public class DashBoardScreen extends Screen {
 
     public DashBoardScreen() {
         super("DashBoardScreen", "/dashboard");
-        System.out.println("Instantiating " + super.getName());
+//        System.out.println("Instantiating " + super.getName());
     }
 
     @Override
     public void render() {
-
-        String userSelection;
-        System.out.println("Rendering " + app.getCurrentUser().getFirstName() + "'s Dashboard");
-
-        while (app.isSessionValid()) {
-            System.out.println("\n\n-----------------------");
-            System.out.println("1) View Account Balance");
-            System.out.println("2) Sign Out");
-        }
+        System.out.println("Welcome to your Dashboard.\n");
+        System.out.println("1) Balance");
+        System.out.println("2) Deposit");
+        System.out.println("3) Withdraw");
+        System.out.println("4) Sign out");
 
         try {
-
-            System.out.println("Selection: ");
-            userSelection = app.getConsole().readLine();
+            System.out.println("> ");
+            String userSelection = app.getConsole().readLine();
 
             switch (userSelection) {
                 case "1":
                     app.getRouter().navigate("/balance");
                     break;
                 case "2":
+                    app.getRouter().navigate("/deposit");
+                    break;
+                case "3":
+                    app.getRouter().navigate("/withdraw");
+                    break;
+                case "4":
                     app.getRouter().navigate("/home");
+                    break;
                 default:
-                    System.out.println("Invalid Selection");
+                    System.err.println("Invalid Selection");
+                    app.getRouter().navigate("/dashboard");
             }
 
         } catch (Exception e) {
-            System.err.println("ERROR - " + e.getMessage());
-            System.out.println("Shutting down application!");
-            app.setAppRunning(false);
+            System.out.println("Invalid Selection");
+            app.getRouter().navigate("/dashboard");
+
         }
     }
+
 }

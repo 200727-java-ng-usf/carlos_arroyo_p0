@@ -9,12 +9,14 @@ public class ScreenRouter {
 
     private Set<Screen> screens = new HashSet<>();
 
+    // add screens
     public ScreenRouter addScreen(Screen screen) {
-        System.out.println("[log] - Loading " + screen.getName() + " into the router!");
+//        System.out.println("[log] - Loading " + screen.getName() + " into the router!");
         screens.add(screen);
         return this;
     }
 
+    // navigate through the screens
     public void navigate(String route) {
         screens.stream()
                 .filter(screen -> screen.getRoute().equals(route))

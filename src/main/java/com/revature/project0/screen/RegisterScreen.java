@@ -4,6 +4,7 @@ import com.revature.project0.models.User;
 import com.revature.project0.services.UserService;
 import com.sun.jdi.request.InvalidRequestStateException;
 
+import javax.security.sasl.AuthenticationException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -15,42 +16,44 @@ public class RegisterScreen extends Screen {
 
     public RegisterScreen(UserService userService) {
         super("RegisterScreen", "/register");
-        System.out.println("[LOG] - Instantiating " + this.getClass().getName());
+//        System.out.println("[LOG] - Instantiating " + this.getClass().getName());
         this.userService = userService;
     }
 
     @Override
     public void render() {
 
-        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-        Integer id = 0;
         String firstName, lastName, username, email, password;
 
         try {
             System.out.println("Sign up for a new account!");
             System.out.println("First name: ");
-            firstName = console.readLine();
+            firstName = app.getConsole().readLine();
             System.out.println("Lastname: ");
-            lastName = console.readLine();
+            lastName = app.getConsole().readLine();
             System.out.println("Username: ");
-            username = console.readLine();
+            username = app.getConsole().readLine();
             System.out.println("Email: ");
-            email = console.readLine();
+            email = app.getConsole().readLine();
             System.out.println("Password");
-            password = console.readLine();
+            password = app.getConsole().readLine();
 
-            User newUser = new User(id, firstName, lastName, username, email, password);
+            User newUser = new User(firstName, lastName, username, email, password);
             userService.register(newUser);
 
             if(app.isSessionValid()) {
                 app.getRouter().navigate("/dashboard");
             }
+        } catch (AuthenticationException ae) {
+            System.err.println("User already exists.");
         } catch (InvalidRequestStateException e) {
             System.err.println("Registration unsuccessful, invalid values provided.");
+            app.getRouter().navigate("/register");
 
         }catch (Exception e) {
             System.err.println("Registration unsuccessful, invalid values provided");
-            System.out.println("[LOG] - Shutting down application");
+            app.getRouter().navigate("/register");
+//            System.out.println("[LOG] - Shutting down application");
             app.setAppRunning(false);
         }
     }
